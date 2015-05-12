@@ -1,0 +1,22 @@
+#!/usr/local/bin/node
+
+var markdownpdf = require('markdown-pdf');
+
+// check command line arguments
+if (process.argv.length != 4) {
+    console.log('usage: ./convert <markdown input> <pdf output>');
+    process.exit();
+}
+
+var md_input   = process.argv[2];
+var pdf_output = process.argv[3];
+var css_file   = 'npm_modules/github-markdown-css/github-markdown.css';
+var paper_border = '3cm';
+
+// convert file
+markdownpdf({
+    cssPath: css_file,
+    paperBorder: paper_border
+}).from(md_input).to(pdf_output, function () {
+    console.log('done');
+});

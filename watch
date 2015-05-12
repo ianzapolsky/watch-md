@@ -1,0 +1,42 @@
+#!/usr/local/bin/node
+
+var exec = require('child_process').exec;
+var fs   = require('fs');
+
+// check command line arguments
+if (process.argv.length != 4) {
+    console.log('usage: ./watch <markdown input> <pdf output>');
+    process.exit();
+}
+
+var md_input   = process.argv[2];
+var pdf_output = process.argv[3];
+
+// initialize old time
+var old_time, new_time;
+fs.stat(md_input, function(error, stats) {
+    if (!error) {
+        old_time = stats.mtime;
+    }
+});
+
+// start watching markdown file
+console.log('watching for changes...');
+setInterval(function () {
+    fs.stat(md_input, function(error, stats) {
+        if (!error) {
+            new_time = stats.mtime;
+            if (old_time < new_time) {
+                console.log('changes found. converting '+ md_input +' now...');
+                old_time = new_time;
+                exec('./convert '+ md_input +' '+ pdf_output, 
+                    function(error, stdout, stderr) {
+                        if (!error) {
+                            console.log('conversion done');
+                            console.log('watching for changes...');
+                        }
+                    });
+            }
+        }
+    });
+}, 1000);

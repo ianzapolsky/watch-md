@@ -1,0 +1,12 @@
+{
+  "name": "watch-md",
+  "version": "0.0.1",
+  "main": "convert.js",
+  "author": "ianzapolsky",
+  "dependencies": {},
+  "devDependencies": {
+    "github-markdown-css": "^2.0.8",
+    "highlight.js": "^8.5.0",
+    "markdown-pdf": "^5.2.0"
+  }
+}
