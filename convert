@@ -11,7 +11,7 @@ if (process.argv.length != 4) {
 var md_input   = process.argv[2];
 var pdf_output = process.argv[3];
 var css_file   = 'npm_modules/github-markdown-css/github-markdown.css';
-var paper_border = '3cm';
+var paper_border = '2cm';
 
 // convert file
 markdownpdf({
